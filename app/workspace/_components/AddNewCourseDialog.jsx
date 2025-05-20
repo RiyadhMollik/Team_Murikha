@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -19,18 +19,20 @@ import {
 } from "../../../@/components/ui/select";
 import { Button } from "../../../@/components/ui/button";
 import { Loader2Icon, Sparkle } from "lucide-react";
-import { desc } from "drizzle-orm";
 import axios from "axios";
-
+import { v4 as uuidv4 } from 'uuid';
+import { useRouter } from "next/navigation";
 function AddNewCourseDialog({ children }) {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    noOfChapters: 1,
+    no0fChapters: 1,
     includeVideo: false,
     level: "",
-    category: "",
+    catetgory: "",
   });
 
   const handleInputChange = (field, value) => {
@@ -38,21 +40,25 @@ function AddNewCourseDialog({ children }) {
       ...prev,
       [field]: value,
     }));
-    console.log(formData);
+    console.log(formData );
   };
 
-  const onGenerateCourse = () => {
-    console.log(formData);
-  };
+//   const onGenerateCourse = () => {
+//     console.log(formData);
+//   };
 
   const onGenerate = async () => {
-    console.log(formData);
+     const courseId = uuidv4();
+    console.log(formData , courseId);
+   
     try {
       setIsLoading(true);
       const result = await axios.post("/api/generate-course-layout", {
         ...formData,
+        courseId:courseId
       });
       console.log(result.data);
+      router.push(`/workspace/edit-course/${courseId}`);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -75,7 +81,7 @@ function AddNewCourseDialog({ children }) {
                 <Input
                   placeholder="Enter Course Name"
                   onChange={(event) =>
-                    handleInputChange("courseName", event?.target.value)
+                    handleInputChange("name", event?.target.value)
                   }
                 />
               </div>
@@ -93,7 +99,7 @@ function AddNewCourseDialog({ children }) {
                 <Input
                   placeholder="Enter number of chapters"
                   onChange={(event) =>
-                    handleInputChange("noOfChapters", event?.target.value)
+                    handleInputChange("no0fChapters", event?.target.value)
                   }
                 />
               </div>
@@ -126,7 +132,7 @@ function AddNewCourseDialog({ children }) {
                 <Input
                   placeholder="Enter Category(sperated by Comma)"
                   onChange={(event) =>
-                    handleInputChange("category", event?.target.value)
+                    handleInputChange("catetgory", event?.target.value)
                   }
                 />
               </div>
