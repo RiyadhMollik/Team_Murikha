@@ -69,12 +69,12 @@ const model = 'gemini-2.0-flash';
   });
   // console.log(response?.cordinates[0]?.content.parts[0]?.text);
 
-const RawRes = response?.candidates[0]?.content.parts[0]?.text;
-const RawJson = RawRes?.split("```json")[1].split("```")[0];
+// const RawRes = response?.candidates[0]?.content.parts[0]?.text;
+const RawResp=response.candidates[0]?.content.parts[0]?.text
+const RawJson=RawResp.replace('```json','').replace('```','');
 const JSONRes = JSON.parse(RawJson);
 
 //generate Image
-
  //Save the response to the database
   const course = await db.insert(coursesTable).values({
     ...formData,
