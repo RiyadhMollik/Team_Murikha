@@ -18,6 +18,7 @@ import { Book, LayoutDashboard } from 'lucide-react'
 import path from 'path'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
+import AddNewCourseDialog  from './AddNewCourseDialog'
 function AppSideBar() {
     const SideBarOption = [
         {
@@ -44,7 +45,9 @@ function AppSideBar() {
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
-                    <Button>Create Course</Button>
+                    <AddNewCourseDialog>
+                        <Button>Create Course</Button>
+                    </AddNewCourseDialog>
                 </SidebarGroup>
                 <SidebarGroup>
                     <SidebarGroupContent>
