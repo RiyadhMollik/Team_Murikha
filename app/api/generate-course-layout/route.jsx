@@ -63,18 +63,17 @@ const model = 'gemini-2.0-flash';
     config,
     contents,
   });
-  console.log(response?.cordinates[0]?.content.parts[0]?.text);
+  // console.log(response?.cordinates[0]?.content.parts[0]?.text);
 
-const RawRes = response?.cordinates[0]?.content.parts[0]?.text;
+const RawRes = response?.candidates[0]?.content.parts[0]?.text;
 const RawJson = RawRes?.split("```json")[1].split("```")[0];
 const JSONRes = JSON.parse(RawJson);
-  //Save the response to the database
+ //Save the response to the database
 //   const course = await db.insert(coursesTable).values({
 //     ...formData,
 //     courseJson: response.text(),
 //     userEmail: user?.primaryEmailAddress?.emailAddress,
 //   });
 
-  
   return NextResponse.json(JSONRes);
 }
