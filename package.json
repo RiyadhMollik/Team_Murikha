@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "node run-studio.js"
   },
   "dependencies": {
     "@clerk/nextjs": "^6.19.4",

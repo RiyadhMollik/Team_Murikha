@@ -1,0 +1,11 @@
+NEW Project run
+
+
+Install Dependecies:
+npm i
+npm i drizzle-kit
+
+
+Then to run:
+(terminal 1) :- npm run dev 
+(terminal 2) :- npx drizzle-kit studio
