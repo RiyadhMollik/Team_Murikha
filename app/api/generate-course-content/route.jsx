@@ -18,7 +18,7 @@ export async function POST(req) {
   const { courseJson, courseTitle, courseId } = await req.json();
   const ai = new GoogleGenAI({
     // apiKey: process.env.GEMINI_API_KEY,
-    apiKey: "AIzaSyC_283JSjhnKm9eg9J1Kq31EHDbXywNpFg",
+    apiKey: "AIzaSyC7hEIE0IS2FjBGsFim4zVcocXp4RIkSSY",
   });
   const promises = courseJson?.chapters?.map(async (chapter) => {
     const config = {

@@ -3,6 +3,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import { Loader2Icon, Sparkle } from "lucide-react";
 
 function Course({ course }) {
   const courseLayout = course?.courseJson?.course;
@@ -73,11 +74,13 @@ function Course({ course }) {
           <button
             disabled={loading}
             onClick={GenerateCourseContent}
-            className="bg-purple-600 w-full text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
+            className="bg-purple-600 flex items-center justify-center gap-5 w-full text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
           >
-            <span role="img" aria-label="gear" className="mr-2">
-              ⚙️
-            </span>
+            {loading ? (
+              <Loader2Icon className="animate-spin" />
+            ) : (
+              <Sparkle  />
+            )}{" "}
             Generate Content
           </button>
         </div>

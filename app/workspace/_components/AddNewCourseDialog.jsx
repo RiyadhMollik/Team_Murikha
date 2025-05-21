@@ -139,14 +139,14 @@ function AddNewCourseDialog({ children }) {
 
               <div className="mt-6">
                 <Button
-                  className="flex items-center w-full"
+                  className="flex justify-center items-center w-full"
                   onClick={onGenerate}
                   disabled={isLoading}
                 >
                   {isLoading ? (
                     <Loader2Icon className="animate-spin" />
                   ) : (
-                    <Sparkle className="mr-2" />
+                    <Sparkle  />
                   )}{" "}
                   Generate Course
                 </Button>
