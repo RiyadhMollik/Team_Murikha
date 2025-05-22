@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
 import { Loader2Icon, Sparkle } from "lucide-react";
+import Link from "next/link";
 
-function Course({ course }) {
+function Course({ course, viewcourse }) {
   const courseLayout = course?.courseJson?.course;
   console.log(course?.courseJson?.course, "course");
   const [loading, setLoading] = useState(false);
@@ -71,18 +72,28 @@ function Course({ course }) {
           </div>
 
           {/* Button */}
-          <button
-            disabled={loading}
-            onClick={GenerateCourseContent}
-            className="bg-purple-600 flex items-center justify-center gap-5 w-full text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
-          >
-            {loading ? (
-              <Loader2Icon className="animate-spin" />
-            ) : (
-              <Sparkle  />
-            )}{" "}
-            Generate Content
-          </button>
+          {
+            !viewcourse ? <button
+              disabled={loading}
+              onClick={GenerateCourseContent}
+              className="bg-purple-600 flex items-center justify-center gap-5 w-full text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
+            >
+              {loading ? (
+                <Loader2Icon className="animate-spin" />
+              ) : (
+                <Sparkle />
+              )}{" "}
+              Generate Content
+            </button> : <Link href={`/course/${course?.cid}`}>
+              <button
+                className="bg-purple-600 flex items-center justify-center gap-5 w-full text-white px-6 py-3 rounded-lg font-semibold hover:bg-purple-700 transition"
+              >
+                <Sparkle />
+
+                Continue Learning
+              </button>
+            </Link>
+          }
         </div>
 
         {/* Right Image */}

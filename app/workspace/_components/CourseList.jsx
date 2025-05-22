@@ -9,20 +9,20 @@ import axios from 'axios'
 
 function CourseList() {
     const [CourseList, setCourseList] = React.useState([]);
-    const {user} =useUser();
+    const { user } = useUser();
     const getCourseList = async () => {
         try {
             const res = await axios.get('/api/course');
             const data = res.data;
             console.log(data);
-            
+
             setCourseList(data)
         } catch (error) {
             console.log(error)
         }
     }
     React.useEffect(() => {
-       user && getCourseList()
+        user && getCourseList()
     }, [user])
     return (
         <div className='mt-10'>
@@ -33,10 +33,11 @@ function CourseList() {
                 <AddNewCourseDialog>
                     <Button>+ Create Your First Course</Button>
                 </AddNewCourseDialog>
-            </div> : <div>
+            </div> : <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-10'>
                 {CourseList.map((course) => {
-                    // <CourseCard course={course} />
-                    <div className='text-black'>CourseCard</div>
+                    return <div key={course.id} className='text-black'>
+                        <CourseCard course={course} />
+                    </div>;
                 })}
             </div>}
         </div>

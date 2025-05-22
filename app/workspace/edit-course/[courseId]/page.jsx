@@ -4,7 +4,7 @@ import { useParams } from 'next/navigation'
 import React, { use, useEffect, useState } from 'react'
 import Course from '../_components/Course';
 import ChapterTopicList from '../_components/ChapterTopicList';
-function CourseEdit() {
+function CourseEdit({viewcourse=false}) {
     const { courseId } = useParams();
     console.log(courseId);
     const [course , setCourse] = useState();
@@ -20,7 +20,7 @@ function CourseEdit() {
     
   return (
     <div>
-        <Course  course={course}/>
+        <Course  course={course} viewcourse={viewcourse}/>
         <ChapterTopicList course={course}/> 
     </div>
   )
