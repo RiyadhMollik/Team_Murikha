@@ -30,6 +30,8 @@ function Course({ course, viewcourse }) {
       toast.error("Server Side error, Try Again!");
     }
   };
+  console.log(course);
+  
   return (
     <div>
       <div className="flex flex-col md:flex-row items-center justify-between bg-white rounded-xl shadow-md p-6 space-y-4 md:space-y-0 md:space-x-6  mx-auto">
@@ -56,7 +58,7 @@ function Course({ course, viewcourse }) {
               <span className="text-green-600 text-xl mr-2">📖</span>
               <div>
                 <div className="text-sm text-gray-600">Chapters</div>
-                <div className="font-semibold text-gray-800">2 Hours</div>
+                <div className="font-semibold text-gray-800">{course?.no0fChapters}</div>
               </div>
             </div>
 
@@ -65,7 +67,7 @@ function Course({ course, viewcourse }) {
               <div>
                 <div className="text-sm text-gray-600">Difficulty Level</div>
                 <div className="font-semibold text-gray-800 capitalize">
-                  beginner
+                 {course?.level}
                 </div>
               </div>
             </div>

@@ -14,13 +14,11 @@ function ChapterContent({ courseInfo }) {
   const topics = courseContent?.[selectedChapterIndex]?.courseData?.topics;
   let completedChapters = enrollCourse?.completedChapters ?? [];
   const markChapterCompleted = async () => {
-    if (completedChapters?.length ===0) {
       completedChapters.push(selectedChapterIndex);
       const result = await axios.put(`/api/enroll-course`, { completedChapter: completedChapters, courseId: course?.cid });
       console.log(result);
       toast.success('Chapter Marked Completed');
       window.location.reload();
-    }
   }
   return (
     <div className='p-10 w-9/12'>
