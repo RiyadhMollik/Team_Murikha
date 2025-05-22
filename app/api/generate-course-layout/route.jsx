@@ -6,8 +6,6 @@ import { db } from "../../../config/db";
 import { coursesTable } from "../../../config/schema";
 import { eq } from "drizzle-orm";
 import axios from "axios";
-//IF USING OPENROUTER MODELS
-import OpenAI from "openai";
 
 const PROMPT = `Genrate Learning Course depends on following details. In which Make sure to add Course Name, Description,Course Banner Image Prompt (Create a modern, flat-style 2D digital illustration representing user Topic. Include UI/UX elements such as mockup screens, text blocks, icons, buttons, and creative workspace tools. Add symbolic elements related to user Course, like sticky notes, design components, and visual aids. Use a vibrant color palette (blues, purples, oranges) with a clean, professional look. The illustration should feel creative, tech-savvy, and educational, ideal for visualizing concepts in user Course) for Course Banner in 3d format Chapter Name, , Topic under each chapters , Duration for each chapters etc, in JSON format only
 
@@ -40,109 +38,57 @@ Schema:
 
 `;
 
-//FOR GOOGLE GENAI MODELS
-
-// export async function POST(req) {
-//   const { courseId, ...formData } = await req.json();
-//   console.log(courseId, formData);
-
-//   const user = await currentUser();
-//   const ai = new GoogleGenAI({
-//     // apiKey: process.env.GEMINI_API_KEY,
-//     apiKey: "AIzaSyC7hEIE0IS2FjBGsFim4zVcocXp4RIkSSY",
-//   });
-//   const config = {
-//     responseMimeType: "text/plain",
-//   };
-//   //   const model = "gemma-3-12b-it";
-//   const model = "gemini-2.0-flash";
-//   const contents = [
-//     {
-//       role: "user",
-//       parts: [
-//         {
-//           text: PROMPT + JSON.stringify(formData),
-//         },
-//       ],
-//     },
-//   ];
-
-//   const response = await ai.models.generateContent({
-//     model,
-//     config,
-//     contents,
-//   });
-//   // console.log(response?.cordinates[0]?.content.parts[0]?.text);
-
-//   // const RawRes = response?.candidates[0]?.content.parts[0]?.text;
-//   const RawResp = response.candidates[0]?.content.parts[0]?.text;
-//   const RawJson = RawResp.replace("```json", "").replace("```", "");
-//   const JSONRes = JSON.parse(RawJson);
-
-//   const ImagePrompt = JSONRes.course?.bannerImagePrompt;
-
-//   //generate Image
-
-//   // const bannerImageUrl=await GenerateImage(ImagePrompt);
-//   //Save the response to the database
-//   const course = await db.insert(coursesTable).values({
-//     ...formData,
-//     courseJson: JSONRes,
-//     userEmail: user?.primaryEmailAddress?.emailAddress,
-//     cid: courseId,
-//     bannerImageUrl: "https://i.ibb.co/VWt9CWQp/image.png",
-//     // bannerImageUrl:bannerImageUrl
-//   });
-
-//   return NextResponse.json({ courseId });
-// }
-
-//FOR OPENROUTER MODELS
 export async function POST(req) {
   const { courseId, ...formData } = await req.json();
   console.log(courseId, formData);
 
   const user = await currentUser();
-
-  const openai = new OpenAI({
-    apiKey: process.env.OPEN_ROUTER_API_KEY,
-    baseURL: "https://openrouter.ai/api/v1",
+  const ai = new GoogleGenAI({
+    // apiKey: process.env.GEMINI_API_KEY,
+    // apiKey: "AIzaSyC_283JSjhnKm9eg9J1Kq31EHDbXywNpFg",
+    apiKey: "AIzaSyC7hEIE0IS2FjBGsFim4zVcocXp4RIkSSY",
   });
-
-  const messages = [
+  const config = {
+    responseMimeType: "text/plain",
+  };
+  //   const model = "gemma-3-12b-it";
+  const model = "gemini-2.0-flash";
+  const contents = [
     {
       role: "user",
-      content: `${PROMPT}${JSON.stringify(formData)}`,
+      parts: [
+        {
+          text: PROMPT + JSON.stringify(formData),
+        },
+      ],
     },
   ];
 
-  const completion = await openai.chat.completions.create({
-    model: "deepseek/deepseek-prover-v2:free",
-    messages,
-    extra_headers: {
-      "HTTP-Referer": "<YOUR_SITE_URL>", // Optional
-      "X-Title": "<YOUR_SITE_NAME>", // Optional
-    },
-    extra_body: {},
+  const response = await ai.models.generateContent({
+    model,
+    config,
+    contents,
   });
+  // console.log(response?.cordinates[0]?.content.parts[0]?.text);
 
-  const RawResp = completion.choices[0].message.content;
-  const RawJson = RawResp.replace(/```json\s*|```/g, "");
+  // const RawRes = response?.candidates[0]?.content.parts[0]?.text;
+  const RawResp = response.candidates[0]?.content.parts[0]?.text;
+  const RawJson = RawResp.replace("```json", "").replace("```", "");
   const JSONRes = JSON.parse(RawJson);
+
   const ImagePrompt = JSONRes.course?.bannerImagePrompt;
 
-  // Generate Image
+  //generate Image
 
-  const bannerImageUrl = await GenerateImage(ImagePrompt);
-
-  // Insert into database
+  const bannerImageUrl=await GenerateImage(ImagePrompt);
+  //Save the response to the database
   const course = await db.insert(coursesTable).values({
     ...formData,
     courseJson: JSONRes,
     userEmail: user?.primaryEmailAddress?.emailAddress,
     cid: courseId,
-    // bannerImageUrl: "https://i.ibb.co/VWt9CWQp/image.png",
-     bannerImageUrl:bannerImageUrl
+    // bannerImageUrl: "https://i.ibb.co/VWt9CWQp/image.png
+    bannerImageUrl:bannerImageUrl
   });
 
   return NextResponse.json({ courseId });

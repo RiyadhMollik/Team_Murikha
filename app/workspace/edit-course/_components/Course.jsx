@@ -22,7 +22,7 @@ function Course({ course, viewcourse }) {
       });
       console.log(result.data, "course content");
       setLoading(false);
-      router.replace("/workspace");
+      router.replace("/course/"+course?.cid);
       toast.success("Course Content Generated Successfully!");
     } catch (error) {
       console.log(error);
@@ -31,7 +31,7 @@ function Course({ course, viewcourse }) {
     }
   };
   console.log(course);
-  
+
   return (
     <div>
       <div className="flex flex-col md:flex-row items-center justify-between bg-white rounded-xl shadow-md p-6 space-y-4 md:space-y-0 md:space-x-6  mx-auto">
@@ -67,7 +67,7 @@ function Course({ course, viewcourse }) {
               <div>
                 <div className="text-sm text-gray-600">Difficulty Level</div>
                 <div className="font-semibold text-gray-800 capitalize">
-                 {course?.level}
+                  {course?.level}
                 </div>
               </div>
             </div>
