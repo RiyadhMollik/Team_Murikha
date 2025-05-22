@@ -22,7 +22,7 @@ function Course({ course, viewcourse }) {
       });
       console.log(result.data, "course content");
       setLoading(false);
-      router.replace("/course/"+course?.cid);
+      router.replace("/workspace");
       toast.success("Course Content Generated Successfully!");
     } catch (error) {
       console.log(error);
