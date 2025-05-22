@@ -23,7 +23,7 @@ function EnrollCourseCard({ course, enrollCourse }) {
                 <h2 className="font-bold text-lg text-gray-900 mb-2">
                     {courseJson?.name}
                 </h2>
-                <p className="text-gray-400 text-sm mb-4">
+                <p className="text-gray-400 text-sm mb-4 min-h-20">
                     {courseJson?.description}
                 </p>
             </div>

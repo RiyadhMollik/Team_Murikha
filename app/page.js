@@ -1,17 +1,25 @@
 "use client";
 import { UserButton } from "@clerk/nextjs";
 import Image from "next/image";
-
+import { useEffect, useRef, useState } from "react";
+import { FiMaximize2, FiX } from "react-icons/fi";
+import FullscreenCard from "./FullscreenCard";
+import Link from "next/link";
 export default function Home() {
+
   return (
     <div className="min-h-screen bg-[#131c27] flex flex-col">
       {/* Navigation Bar */}
       <header className="bg-[#192233] shadow-sm sticky top-0 z-50 border-b border-[#232f41]">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
-          <div className="flex items-center">
-            <span className="text-2xl font-['Pacifico'] text-[#7f9cf5]">
-              logo
-            </span>
+          <div className="flex w-full items-center">
+            <Image
+              src="/20250522_211445.png"
+              alt="Logo"
+              width={130}
+              height={80}
+              className="mr-2"
+            />
           </div>
           <div className="hidden md:flex relative w-full max-w-xl mx-4">
             <input
@@ -27,15 +35,15 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative bg-[#192233] py-12 overflow-hidden">
+      <section className="relative bg-[#192233] py-12 overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
-          <Image
+          {/* <Image
             src="/online-education.png"
             alt="Background"
             fill
             className="w-full h-full object-cover object-center opacity-70 blur-[2px] scale-105"
             unoptimized
-          />
+          /> */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#192233]/60 via-[#131c27]/40 to-transparent" />
         </div>
         <div className="container mx-auto px-4 relative z-10 flex flex-col md:flex-row gap-8 items-center">
@@ -51,77 +59,14 @@ export default function Home() {
               Tell us your learning goals and requirements. Our AI will generate
               a personalized course tailored just for you.
             </p>
-            <form className="bg-[#232f41] rounded-lg shadow-sm p-6 space-y-4 border border-[#222c38]">
-              <div>
-                <label className="block text-sm font-medium text-[#d1d5db] mb-2">
-                  What do you want to learn?
-                </label>
-                <input
-                  type="text"
-                  className="w-full px-4 py-2 border-none bg-[#192233] text-[#e5e7eb] rounded focus:outline-none focus:ring-2 focus:ring-[#7f9cf5] text-sm placeholder-[#6b7280]"
-                  placeholder="e.g. Web Development, Data Science, Digital Marketing..."
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-[#d1d5db] mb-2">
-                  Your current skill level
-                </label>
-                <div className="flex space-x-4">
-                  <label className="flex items-center">
-                    <input
-                      type="radio"
-                      name="skill-level"
-                      defaultChecked
-                      className="mr-2"
-                    />
-                    <span className="text-[#d1d5db]">Beginner</span>
-                  </label>
-                  <label className="flex items-center">
-                    <input type="radio" name="skill-level" className="mr-2" />
-                    <span className="text-[#d1d5db]">Intermediate</span>
-                  </label>
-                  <label className="flex items-center">
-                    <input type="radio" name="skill-level" className="mr-2" />
-                    <span className="text-[#d1d5db]">Advanced</span>
-                  </label>
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-[#d1d5db] mb-2">
-                  Specific requirements or focus areas
-                </label>
-                <textarea
-                  className="w-full px-4 py-2 border-none bg-[#192233] text-[#e5e7eb] rounded focus:outline-none focus:ring-2 focus:ring-[#7f9cf5] text-sm h-24 placeholder-[#6b7280]"
-                  placeholder="Describe any specific topics, skills, or areas you want to focus on..."
-                />
-              </div>
-              <div className="flex items-center">
-                <input type="checkbox" defaultChecked className="mr-2" />
-                <span className="text-sm text-[#d1d5db]">
-                  Include practical exercises and projects
-                </span>
-              </div>
+            <Link href="/workspace">
               <button
                 type="submit"
                 className="w-full bg-[#7f9cf5] text-[#192233] px-6 py-3 rounded font-medium hover:bg-[#a5b4fc] transition flex items-center justify-center"
               >
                 <span className="mr-2">✨</span> Generate My Course
               </button>
-            </form>
-            <div className="grid grid-cols-3 gap-4">
-              <div className="bg-[#232f41] p-4 rounded-lg shadow-sm text-center border border-[#222c38]">
-                <p className="text-sm text-[#a1a1aa] mb-1">Courses Generated</p>
-                <div className="text-xl font-bold text-[#e5e7eb]">24</div>
-              </div>
-              <div className="bg-[#232f41] p-4 rounded-lg shadow-sm text-center border border-[#222c38]">
-                <p className="text-sm text-[#a1a1aa] mb-1">Topics Available</p>
-                <div className="text-xl font-bold text-[#e5e7eb]">150+</div>
-              </div>
-              <div className="bg-[#232f41] p-4 rounded-lg shadow-sm text-center border border-[#222c38]">
-                <p className="text-sm text-[#a1a1aa] mb-1">Success Rate</p>
-                <div className="text-xl font-bold text-[#e5e7eb]">98%</div>
-              </div>
-            </div>
+            </Link>
           </div>
           <div className="w-full md:w-1/2 md:pl-8">
             <div className="bg-[#232f41] rounded-lg shadow-sm p-6 border border-[#222c38]">
@@ -170,6 +115,20 @@ export default function Home() {
             </div>
           </div>
         </div>
+        <div className="grid grid-cols-3 gap-4  mt-20">
+          <div className="bg-[#232f41] p-4 rounded-lg shadow-sm text-center border border-[#222c38]">
+            <p className="text-sm text-[#a1a1aa] mb-1">Courses Generated</p>
+            <div className="text-xl font-bold text-[#e5e7eb]">24</div>
+          </div>
+          <div className="bg-[#232f41] p-4 rounded-lg shadow-sm text-center border border-[#222c38]">
+            <p className="text-sm text-[#a1a1aa] mb-1">Topics Available</p>
+            <div className="text-xl font-bold text-[#e5e7eb]">150+</div>
+          </div>
+          <div className="bg-[#232f41] p-4 rounded-lg shadow-sm text-center border border-[#222c38]">
+            <p className="text-sm text-[#a1a1aa] mb-1">Success Rate</p>
+            <div className="text-xl font-bold text-[#e5e7eb]">98%</div>
+          </div>
+        </div>
       </section>
 
       {/* Space Simulations Section */}
@@ -178,36 +137,19 @@ export default function Home() {
           Space Simulations
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <SolarSystemEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Solar System 2017
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <MilkyWayEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Milky Way
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <EarthEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">Earth</h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <MarsEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Mars Exploration
-            </h3>
-          </div>
+
+          <FullscreenCard title="Solar System 2017">
+            <SolarSystemEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="Milky Way">
+            <MilkyWayEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="Earth">
+            <EarthEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="Mars Exploration">
+            <MarsEmbed />
+          </FullscreenCard>
         </div>
       </section>
 
@@ -217,54 +159,24 @@ export default function Home() {
           Biology Simulations
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <EukaryoticPlantCellEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Eukaryotic Plant Cell
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <BacterialCellEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Bacterial Cell Structure
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <ExplodingSkullEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Exploding Skull
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <HumanBodyEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Full Human Body Anatomy
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <HeadMuscleEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Colourcoded Head Muscle Chart
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <LungAnimationEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Lung Animation
-            </h3>
-          </div>
+          <FullscreenCard title="Eukaryotic Plant Cell">
+            <EukaryoticPlantCellEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="Bacterial Cell Structure">
+            <BacterialCellEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="Exploding Skull">
+            <ExplodingSkullEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="Full Human Body Anatomy">
+            <HumanBodyEmbed />
+          </FullscreenCard>
+          <FullscreenCard title=" Colourcoded Head Muscle Chart">
+            <HeadMuscleEmbed />
+          </FullscreenCard>
+          <FullscreenCard title=" Lung Animation">
+            <LungAnimationEmbed />
+          </FullscreenCard>
         </div>
       </section>
 
@@ -274,290 +186,140 @@ export default function Home() {
           Science and Technology Simulations
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <PermanentMagnetEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Permanent Magnet
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <AnimatedAtomEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Animated Atom
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <Sharc660Embed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              SHARC 660
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <OscilloscopeEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Oscilloscope
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <RfSignalGeneratorEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              RF Signal Generator
-            </h3>
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38] flex flex-col items-center">
-            <div className="w-full aspect-video">
-              <ArduinoUnoEmbed />
-            </div>
-            <h3 className="text-lg font-semibold text-[#e5e7eb] mt-4">
-              Arduino UNO
-            </h3>
-          </div>
+          <FullscreenCard title=" Permanent Magnet">
+            <PermanentMagnetEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="Animated Atom">
+            <AnimatedAtomEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="SHARC 660">
+            <Sharc660Embed />
+          </FullscreenCard>
+          <FullscreenCard title=" Oscilloscope">
+            <OscilloscopeEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="RF Signal Generator">
+            <RfSignalGeneratorEmbed />
+          </FullscreenCard>
+          <FullscreenCard title="Arduino UNO">
+            <ArduinoUnoEmbed />
+          </FullscreenCard>
         </div>
       </section>
 
-      {/* Main Content Area */}
-      <main className="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
-        <aside className="w-full md:w-1/4 space-y-6">
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-4 border border-[#222c38]">
-            <h4 className="font-semibold mb-2 text-[#e5e7eb]">Filters</h4>
-            <div className="mb-2">
-              <label className="block text-sm font-medium text-[#d1d5db]">
-                Category
-              </label>
-              <select className="w-full mt-1 rounded border-[#192233] bg-[#192233] text-[#e5e7eb]">
-                <option>All</option>
-                <option>Web Development</option>
-                <option>Data Science</option>
-                <option>Design</option>
-              </select>
+      <section className="bg-[#192233] text-[#e5e7eb] py-12 px-4">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-3xl font-semibold text-center text-[#7f9cf5] mb-6">
+            Contact Us
+          </h2>
+          <form className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm mb-1" htmlFor="name">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Your name"
+                  className="w-full px-4 py-2 rounded border border-[#232f41] bg-[#232f41] placeholder-[#6b7280] focus:outline-none"
+                />
+              </div>
+              <div>
+                <label className="block text-sm mb-1" htmlFor="email">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  className="w-full px-4 py-2 rounded border border-[#232f41] bg-[#232f41] placeholder-[#6b7280] focus:outline-none"
+                />
+              </div>
             </div>
-            <div className="mb-2">
-              <label className="block text-sm font-medium text-[#d1d5db]">
-                Difficulty
-              </label>
-              <select className="w-full mt-1 rounded border-[#192233] bg-[#192233] text-[#e5e7eb]">
-                <option>All</option>
-                <option>Beginner</option>
-                <option>Intermediate</option>
-                <option>Advanced</option>
-              </select>
-            </div>
-            <div className="mb-2">
-              <label className="block text-sm font-medium text-[#d1d5db]">
-                Duration
+
+            <div>
+              <label className="block text-sm mb-1" htmlFor="subject">
+                Subject
               </label>
               <input
-                type="range"
-                min="1"
-                max="12"
-                className="w-full accent-[#7f9cf5]"
+                id="subject"
+                type="text"
+                placeholder="Subject"
+                className="w-full px-4 py-2 rounded border border-[#232f41] bg-[#232f41] placeholder-[#6b7280] focus:outline-none"
               />
             </div>
-            <button className="w-full mt-2 bg-[#7f9cf5] text-[#192233] rounded py-2">
-              Reset Filters
-            </button>
-          </div>
-        </aside>
-        <section className="w-full md:w-3/4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(8)].map((_, i) => (
-              <div
-                key={i}
-                className="bg-[#232f41] rounded-lg shadow-sm p-4 flex flex-col border border-[#222c38]"
+
+            <div>
+              <label className="block text-sm mb-1" htmlFor="message">
+                Message
+              </label>
+              <textarea
+                id="message"
+                rows="5"
+                placeholder="Your message"
+                className="w-full px-4 py-2 rounded border border-[#232f41] bg-[#232f41] placeholder-[#6b7280] focus:outline-none"
+              ></textarea>
+            </div>
+
+            <div className="text-center">
+              <button
+                type="submit"
+                className="bg-[#7f9cf5] w-full text-[#192233] px-6 py-2 rounded hover:bg-[#a5b4fc] transition-colors duration-200"
               >
-                <div className="h-32 w-full bg-[#192233] rounded mb-3 flex items-center justify-center">
-                  <span className="text-2xl">📚</span>
-                </div>
-                <h5 className="font-semibold mb-1 text-[#e5e7eb]">
-                  Course Title {i + 1}
-                </h5>
-                <p className="text-sm text-[#a1a1aa] mb-2">
-                  Short course description goes here.
-                </p>
-                <button className="bg-[#7f9cf5] text-[#192233] rounded py-2 mt-auto">
-                  Continue Learning
-                </button>
-              </div>
-            ))}
-          </div>
-          <div className="flex justify-center mt-6">
-            <button className="bg-[#7f9cf5] text-[#192233] rounded px-6 py-2">
-              Load More Courses
-            </button>
-          </div>
-        </section>
-      </main>
-
-      <section className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-4 text-[#e5e7eb]">
-          Your Learning Analytics
-        </h2>
-        <div className="bg-[#232f41] rounded-lg shadow-sm p-6 flex flex-col md:flex-row gap-8 border border-[#222c38]">
-          <div className="flex-1">
-            <div className="h-48 bg-[#192233] rounded mb-4 flex items-center justify-center text-[#a1a1aa]">
-              Performance Trends Chart
+                Send Message
+              </button>
             </div>
-            <div className="h-48 bg-[#192233] rounded flex items-center justify-center text-[#a1a1aa]">
-              Skills Radar Chart
-            </div>
-          </div>
-          <div className="flex-1 space-y-4">
-            <div className="bg-[#192233] rounded p-4 text-[#d1d5db]">
-              Learning Streak (placeholder)
-            </div>
-            <div className="bg-[#192233] rounded p-4 text-[#d1d5db]">
-              Improvement Suggestions (placeholder)
-            </div>
-          </div>
+          </form>
         </div>
       </section>
 
-      <section className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-4 text-[#e5e7eb]">
-          Personalize Your Learning Experience
-        </h2>
-        <div className="bg-[#232f41] rounded-lg shadow-sm p-6 grid grid-cols-1 md:grid-cols-4 gap-6 mb-6 border border-[#222c38]">
-          <div className="space-y-2">
-            <b className="text-[#e5e7eb]">Custom Learning Path</b>
-            <br />
-            <button className="bg-[#7f9cf5] text-[#192233] rounded px-4 py-2">
-              Configure Path
-            </button>
-          </div>
-          <div className="space-y-2">
-            <b className="text-[#e5e7eb]">Adaptive Difficulty</b>
-            <br />
-            <button className="bg-[#7f9cf5] text-[#192233] rounded px-4 py-2">
-              Auto Adjust
-            </button>
-          </div>
-          <div className="space-y-2">
-            <b className="text-[#e5e7eb]">Learning Goals</b>
-            <br />
-            <button className="bg-[#7f9cf5] text-[#192233] rounded px-4 py-2">
-              Set Goals
-            </button>
-          </div>
-          <div className="space-y-2">
-            <b className="text-[#e5e7eb]">Study Schedule</b>
-            <br />
-            <button className="bg-[#7f9cf5] text-[#192233] rounded px-4 py-2">
-              Build Schedule
-            </button>
-          </div>
-        </div>
-        <div className="bg-[#232f41] rounded-lg shadow-sm p-6 border border-[#222c38]">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <h4 className="font-semibold mb-2 text-[#e5e7eb]">
-                Learning Style Preferences
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                <label className="text-[#d1d5db]">
-                  <input type="radio" name="style" className="mr-2" />
-                  Video First
-                </label>
-                <label className="text-[#d1d5db]">
-                  <input type="radio" name="style" className="mr-2" />
-                  Micro-Learning
-                </label>
-                <label className="text-[#d1d5db]">
-                  <input type="radio" name="style" className="mr-2" />
-                  Text First
-                </label>
-                <label className="text-[#d1d5db]">
-                  <input type="radio" name="style" className="mr-2" />
-                  Thematic
-                </label>
-              </div>
-            </div>
-            <div>
-              <h4 className="font-semibold mb-2 text-[#e5e7eb]">
-                Other Preferences
-              </h4>
-              <div className="flex flex-wrap gap-2">
-                <label className="text-[#d1d5db]">
-                  <input type="checkbox" className="mr-2" />
-                  Practice Frequency
-                </label>
-                <label className="text-[#d1d5db]">
-                  <input type="checkbox" className="mr-2" />
-                  Assessment Style
-                </label>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-end mt-4">
-            <button className="bg-[#7f9cf5] text-[#192233] rounded px-6 py-2">
-              Save Preferences
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section className="container mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-4 text-[#e5e7eb]">
-          Stay Motivated & Engaged
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-6 text-[#d1d5db] border border-[#222c38]">
-            Your Achievements (placeholder)
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-6 text-[#d1d5db] border border-[#222c38]">
-            Active Challenges (placeholder)
-          </div>
-          <div className="bg-[#232f41] rounded-lg shadow-sm p-6 text-[#d1d5db] border border-[#222c38]">
-            Leaderboard (placeholder)
-          </div>
-        </div>
-      </section>
-
-      <footer className="bg-[#192233] border-t border-[#232f41] mt-8">
-        <div className="container mx-auto px-4 py-8 flex flex-col md:flex-row justify-between items-center">
-          <div className="mb-4 md:mb-0">
-            <span className="text-2xl font-['Pacifico'] text-[#7f9cf5]">
-              logo
-            </span>
-            <p className="text-[#6b7280] text-sm mt-2">
-              © 2025 LearnSphere. All rights reserved.
+      <footer className="bg-[#192233] border-t border-[#232f41] mt-8 text-[#a1a1aa]">
+        <div className="container mx-auto px-4 py-10 grid gap-8 md:grid-cols-3">
+          {/* Logo and Description */}
+          <div>
+            <Image
+              src="/20250522_211445.png"
+              alt="Logo"
+              width={130}
+              height={80}
+              className="mr-2"
+            />
+            <p className="text-[#6b7280] text-sm mt-3">
+              © 2025 Biddhanir. All rights reserved.
             </p>
           </div>
-          <div className="flex flex-col md:flex-row gap-4 items-center">
-            <a href="#" className="text-[#a1a1aa] hover:text-[#7f9cf5]">
+
+          {/* Links */}
+          <div className="flex flex-col gap-3 md:items-center md:justify-center">
+            <a href="#" className="hover:text-[#7f9cf5] transition-colors duration-200">
               About
             </a>
-            <a href="#" className="text-[#a1a1aa] hover:text-[#7f9cf5]">
+            <a href="#" className="hover:text-[#7f9cf5] transition-colors duration-200">
               Contact
             </a>
-            <a href="#" className="text-[#a1a1aa] hover:text-[#7f9cf5]">
+            <a href="#" className="hover:text-[#7f9cf5] transition-colors duration-200">
               Terms
             </a>
-            <a href="#" className="text-[#a1a1aa] hover:text-[#7f9cf5]">
+            <a href="#" className="hover:text-[#7f9cf5] transition-colors duration-200">
               Privacy
             </a>
           </div>
-          <div className="mt-4 md:mt-0">
+
+          {/* Newsletter */}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center md:justify-end gap-3">
             <input
               type="email"
-              placeholder="Subscribe"
-              className="rounded px-3 py-2 border border-[#232f41] bg-[#232f41] text-[#e5e7eb] placeholder-[#6b7280]"
+              placeholder="Your email"
+              className="w-full sm:w-auto rounded px-3 py-2 border border-[#232f41] bg-[#232f41] text-[#e5e7eb] placeholder-[#6b7280] focus:outline-none"
             />
-            <button className="ml-2 bg-[#7f9cf5] text-[#192233] rounded px-4 py-2">
+            <button className="bg-[#7f9cf5] text-[#192233] rounded px-4 py-2 hover:bg-[#a5b4fc] transition-colors duration-200">
               Subscribe
             </button>
           </div>
         </div>
       </footer>
+
     </div>
   );
 }
@@ -586,6 +348,7 @@ function SolarSystemEmbed() {
 function MilkyWayEmbed() {
   return (
     <div className="sketchfab-embed-wrapper w-full h-full">
+
       <iframe
         title="Milky Way"
         frameBorder="0"

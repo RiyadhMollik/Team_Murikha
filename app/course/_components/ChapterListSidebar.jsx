@@ -25,7 +25,7 @@ function ChapterListSidebar({ courseInfo }) {
                                     setSelectedChapterIndex(index);
                                 }}
                             >
-                                <AccordionTrigger className={`text-xl font-bold my-3 flex items-center gap-5 ${completedChapters?.includes(index) ? 'text-green-800' : ''}`}>{index + 1}. {chapter?.courseData?.chapterName}</AccordionTrigger>
+                                <AccordionTrigger className={` font-bold my-3 flex items-center gap-5 ${completedChapters?.includes(index) ? 'text-green-800' : ''}`}>{index + 1}. {chapter?.courseData?.chapterName}</AccordionTrigger>
                                 <AccordionContent asChild>
                                     <div className='  lounded-lg'>
                                         {

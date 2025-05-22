@@ -80,15 +80,15 @@ export async function POST(req) {
 
   //generate Image
 
-  // const bannerImageUrl=await GenerateImage(ImagePrompt);
+  const bannerImageUrl=await GenerateImage(ImagePrompt);
   //Save the response to the database
   const course = await db.insert(coursesTable).values({
     ...formData,
     courseJson: JSONRes,
     userEmail: user?.primaryEmailAddress?.emailAddress,
     cid: courseId,
-    bannerImageUrl: "https://i.ibb.co/VWt9CWQp/image.png",
-    // bannerImageUrl:bannerImageUrl
+    // bannerImageUrl: "https://i.ibb.co/VWt9CWQp/image.png
+    bannerImageUrl:bannerImageUrl
   });
 
   return NextResponse.json({ courseId });

@@ -19,6 +19,7 @@ function CourseCard({ course }) {
       console.log(result.data);
       toast.success('Course Enrolled Successfully');
       setLoading(false);
+      window.location.reload();
     } catch (e) {
       toast.error('Server side error');
       setLoading(false);
@@ -37,7 +38,7 @@ function CourseCard({ course }) {
         <h2 className="font-bold text-lg text-gray-900 mb-2">
           {courseJson?.name}
         </h2>
-        <p className="text-gray-400 text-sm mb-4">
+        <p className="text-gray-400 text-sm mb-4 min-h-20">
           {courseJson?.description}
         </p>
         <div className="flex justify-between items-center text-gray-700 text-sm">
@@ -47,7 +48,7 @@ function CourseCard({ course }) {
           </div>
           <div className="flex items-center gap-2  border-gray-300 px-3 py-1 rounded-md hover:bg-gray-100 text-gray-700">
 
-            {course?.courseContent?.length ? <Button onClick={onEnrollCourse}><PlayCircle /> Start Learning</Button> : <Link href={`/workspace/edit-course/${course?.cid}`}><Button><Settings /> Generate Content</Button></Link>}
+            {course?.courseContent?.length ? <Button onClick={onEnrollCourse}><PlayCircle /> Enroll Course</Button> : <Link href={`/workspace/edit-course/${course?.cid}`}><Button><Settings /> Generate Content</Button></Link>}
           </div>
         </div>
       </div>

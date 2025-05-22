@@ -41,7 +41,7 @@ function AppSideBar() {
     return (
         <Sidebar>
             <SidebarHeader className={'p-4'}>
-                <Image src="/logo.svg" alt="Vercel Logo" width={130} height={130} />
+                <Image src="/20250522_211445.png" alt="Vercel Logo" width={130} height={130} />
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
