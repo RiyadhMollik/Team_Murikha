@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import React from 'react'
-import { Progress } from '../../../@/components/ui/Progress';
+import { Progress } from '../../../@/components/ui/progress';
 import { Button } from '../../../@/components/ui/button';
 import { PlayCircle } from 'lucide-react';
 import Link from 'next/link';
